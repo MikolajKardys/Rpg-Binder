@@ -6,8 +6,18 @@ from src.Run.Player import Player
 
 
 class Session:
-    def __init__(self, campaign, session_id, session_dir_path, session_date, acts=[], locations=[], characters=[],
-                 items=[], spells=[]):
+    def __init__(self, campaign, session_id, session_dir_path, session_date, acts=None, locations=None, characters=None,
+                 items=None, spells=None):
+        if acts is None:
+            acts = []
+        if items is None:
+            items = []
+        if locations is None:
+            locations = []
+        if spells is None:
+            spells = []
+        if characters is None:
+            characters = []
 
         self.campaign = campaign
         self.session_id = session_id
@@ -40,6 +50,8 @@ class Session:
         self.load_players()
 
         new_player = Player(player_id)
+        if new_player is None:
+            raise IndexError(f"No player with this index: {player_id}")
 
         if character_id is not None:
             character = self.campaign.attributes['Character'][0].get(self.campaign, f"id={character_id}")

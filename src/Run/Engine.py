@@ -177,7 +177,7 @@ class Engine:
 
         match = [sess for sess in all_sessions if sess.session_id == int(session_id)]
 
-        if len(match):
+        if match:
             self.loaded_session = match[0]
         else:
             self.loaded_session = None
