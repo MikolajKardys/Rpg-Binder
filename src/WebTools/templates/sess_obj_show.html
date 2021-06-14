@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkbox.css') }}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('session_edits.sess_select_obj', camp_path=camp_path, session_id=session_id) }}">Obecna sesja</a>
+    <a href="{{  url_for('session_edits.sess_show_obj', camp_path=camp_path, obj_name=obj_name, session_id=session_id) }}">{{ obj_label }}</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <form action="{{ url_for('session_edits.sess_show_obj', camp_path=camp_path, obj_name=obj_name, session_id=session_id) }}" method="POST">
+        <table style="width: 70%; border-collapse: collapse; table-layout: fixed;">
+            <tr>
+                <th> <h1> {{ obj_label }} </h1> </th>
+            </tr>
+            <tr>
+                <td>
+                    <form method="POST">
+                        <input style="width: 60%; text-align: left;" type="text" name="str_criteria" class="form_input" placeholder="Szukaj...">
+                        <button name="search" style="position: relative; top: 7.5px; padding: 0; height: 33px; width: 33px; border-radius: 5px;" class="form_button">
+                            <img src="{{ url_for('static', filename='img/search.png') }}"
+                                         style="max-height: 100%; object-fit: scale-down;">
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form_button" style="font-size: 120%;" type="submit" name="submit_button" value="Zapisz stan">
+                </td>
+            </tr>
+            {% if objects %}
+            {% for obj, checked in objects %}
+                <tr>
+                    {% autoescape false %}
+                        <td style="max-width: 100px; white-space:normal;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 90%; border: solid 1px white; white-space:normal;">
+                                        <input type="hidden" name="Ind_{{ obj.id }}">
+                                        {{ obj.to_string(new_line="<br>") }}
+                                    </td>
+                                    <td style="width: 15%; border: solid 1px white; text-align: center;">
+                                        <label style="font-family: 'Book Antiqua', serif;">Dodaj</label>
+                                        <br>
+                                        <label class="checkbox">
+                                            {% if checked %}
+                                            <input id="C_{{ obj.id }}" name="Check_{{ obj.id }}" type="checkbox" onclick="myFunction('C_{{ obj.id }}', 'block_{{ obj.id }}')" checked />
+                                            {% else %}
+                                            <input id="C_{{ obj.id }}" name="Check_{{ obj.id }}" type="checkbox" onclick="myFunction('C_{{ obj.id }}', 'block_{{ obj.id }}')" />
+                                            {% endif %}
+                                            <span></span>
+                                        </label>
+                                    </td>
+                                    {% if checked %}
+                                        <td id="block_{{ obj.id }}"style="border: solid 1px white; text-align: center; position: relative; margin: 0;">
+                                    {% else %}
+                                        <td id="block_{{ obj.id }}"class="blocked" style="border: solid 1px white; text-align: center; position: relative; margin: 0;">
+                                    {% endif %}
+                                        <label style="font-family: 'Book Antiqua', serif;">Zablokowane dla:</label>
+                                        {% for player in players %}
+                                            <br>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div style="max-width: 100%; white-space: normal; position: relative;">
+                                                            <label style="font-family: 'Book Antiqua', serif; font-size: 100%; position: relative;">{{ player['name'] }}</label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox">
+                                                            {% if obj.id in player['blocked'] and checked %}
+                                                                <input name="pl_{{ player['player_id'] }}_{{ obj.id }}" type="checkbox" checked/>
+                                                            {% else %}
+                                                                <input name="pl_{{ player['player_id'] }}_{{ obj.id }}" type="checkbox"/>
+                                                            {% endif %}
+                                                            <span></span>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    {% endautoescape %}
+                </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td>
+                    <span style="font-size: 110%; font-style: italic;">Brak obiektów do wyświetlenia</span>
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </form>
+</div>
+<script>
+    function myFunction(id_1, id_2) {
+      var x = document.getElementById(id_1);
+      var y = document.getElementById(id_2);
+      if (x.checked) {
+        y.classList.remove('blocked');
+      } else {
+        y.classList.add('blocked');
+      }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div style="height: 100%;">
+    <table>
+        <tr>
+            <th colspan="3"> <h1> Wszystkie sesje </h1> </th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for prev in prev_list %}
+            <tr style="border: 1px solid white;">
+                <td style="border: 1px solid white;">
+                    <div class="sess_prev">
+                        {% if prev['character'] is not none %}
+                            <h3> {{ prev['character'] }} </h3>
+                        {% else %}
+                            <h3 style="font-style: italic;"> Brak postaci </h3>
+                        {% endif %}
+                    </div>
+                </td>
+                <td style="border: 1px solid white;">
+                    <div class="sess_prev">
+                        Kampania: {{ prev['campaign'] }}
+                        <br>
+                        Data sesji: {{ prev['date'] }}
+                    </div>
+                </td>
+                <td style="border: 1px solid white;">
+                    <form action="{{ url_for('user_pages.user_character', session_id=prev['session_id']) }}" style="font-size: 90%; width: 100%;">
+                        {% if prev['character'] is not none %}
+                            <input style="font-size: 120%;" class="cool_button" type="submit" name="submit_button" value="Zobacz postać">
+                        {% else %}
+                            <input style="font-size: 120%;" class="cool_button" type="submit" name="submit_button" value="Zobacz postać" disabled>
+                        {% endif %}
+                    </form>
+
+                    <form action="{{ url_for('user_pages.user_session', session_id=prev['session_id']) }}" style="width: 100%; font-size: 90%;">
+                        <input style="font-size: 120%;" class="cool_button" type="submit" name="submit_button" value="Encyklopedia">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}

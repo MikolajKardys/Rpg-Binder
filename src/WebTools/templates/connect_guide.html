@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div style="height: 100%;">
+    <table>
+        <tr>
+            <td>
+                <h1>Jak połączyć się to systemu z innego urządenia?</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="sess_prev" style="white-space:normal; position: relative;">1) Upewnij się, że jesteś podłączony do tej samej sieci Wi-Fi co maszyna na której uruchomiony jest program.</div>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="sess_prev" style="white-space:normal; position: relative;">2) Otwórz przeglądarkę i wprowadź: <h2 style="margin: 15px;"> {{ host_str }} </h2> lub zeskanuj poniższy kod QR:</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="container">
+                    <input class="input_part" type="checkbox" id="zoomCheck">
+                    <label for="zoomCheck">
+                        <img class="qr_code" src="{{ qrcode(host_str)  }}">
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="sess_prev" style="white-space:normal; position: relative; z-index: -1;">Naciśnij aby przybliżyć lub oddalić kod</div>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

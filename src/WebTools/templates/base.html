@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_form.css') }}"/>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+    <meta name="viewport" content="width=device-width, target-densitydpi=device-dpi">
+
+    <meta charset="utf-8">
+
+    <title>RpgBinder</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.ico') }}"/>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <table class="skeleton">
+        {% if not hide_header %}
+            <tr style="position: relative; height: 100px;">
+                <td>
+                    <div class="main_contents" style="height: 100%; padding-top: 0; padding-bottom: 0; z-index: 1;">
+                        <div class="navi-container">
+                            <div class="dropdown">
+                              <button class="dropbtn">Nawigacja</button>
+                              <div class="dropdown-content">
+                                  <a href="/">Strona główna</a>
+                                  {% block navigation %} {% endblock %}
+                              </div>
+                            </div>
+                        </div>
+
+                        <a href="/" style="position: absolute; right:44%; width: 12%; text-align: center;">
+                            <img class="center" src=" {{ url_for('static', filename='img/logo.png') }}"
+                                 style="max-width: 100%; object-fit: scale-down;">
+                        </a>
+
+
+                        <table style="position: absolute; right: 25px;">
+                            <tr>
+
+                                <td>
+                                    {% if session['user_type'] == 'USER' %}
+                                        <h4 style="margin-top: 0; margin-bottom: 5px;"> Użytkownik: {{ session['user_name'] }} </h4>
+                                        ID: {{ session['user_id'] }}
+                                    {% endif %}
+                                    <form action="{{ url_for('login_pages.logout') }}">
+                                        <input style="font-size: 115%" class="cool_button" type="submit" name="submit_button" value="Wyloguj">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="position: relative; z-index: -1; height: 5px;"> </td>
+            </tr>
+        {% endif %}
+
+        <tr>
+            <td>
+                <div class="main_contents" style="height: 100%; width: 100%; position: relative; z-index: 0;">
+                    {% block body %}{% endblock %}
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

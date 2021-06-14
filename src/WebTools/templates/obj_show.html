@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('show_obj', obj_name=obj_path, camp_path=camp_path) }}">{{ obj_name }}</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <table style="width: 50%; border-collapse: collapse; table-layout: fixed;">
+        <tr>
+            <th> <h1> {{ obj_name }} </h1> </th>
+        </tr>
+        <tr>
+            <td>
+                <form method="POST">
+                    <input style="width: 60%; text-align: left;" type="text" name="str_criteria" class="form_input" placeholder="Szukaj...">
+                    <button style="position: relative; top: 7.5px; padding: 0; height: 33px; width: 33px; border-radius: 5px;" class="form_button">
+                        <img src="{{ url_for('static', filename='img/search.png') }}"
+                                     style="max-height: 100%; object-fit: scale-down;">
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% if edit is not none %}
+            <tr>
+                <td>
+                    <form action="{{  url_for('handle_obj', obj_name=obj_path, camp_path=camp_path, obj_id=-1) }}" method="POST">
+                        <input style="font-size: 120%;" class="form_button" type="submit" name="submit_button" value="Stwórz nowy">
+                    </form>
+                    <br>
+                </td>
+            </tr>
+        {% endif %}
+        {% if objects %}
+        {% for obj in objects %}
+            <tr style="border: 1px solid white;">
+                {% autoescape false %}
+                    <td style="border: 1px solid white;  max-width: 100px; white-space:normal;">
+                        {{ obj.to_string(new_line="<br>") }}
+
+                        {% if edit is not none %}
+                        <br>
+                        <form action="{{  url_for('handle_obj', obj_name=obj_path, camp_path=camp_path, obj_id=obj) }}" method="POST">
+                            <input class="form_button" type="submit" name="submit_button" value="Edytuj">
+                            <input class="form_button" type="submit" name="submit_button" value="Usuń">
+                        </form>
+                        {% endif %}
+                    </td>
+                {% endautoescape %}
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+                <td>
+                    <span style="font-size: 110%; font-style: italic;">Brak obiektów do wyświetlenia</span>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+</div>
+{% endblock %}

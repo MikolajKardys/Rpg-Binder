@@ -1,0 +1,24 @@
+{% extends 'obj_forms/base_form.html' %}
+
+{% block form_title %} Edytuj lokację {% endblock %}
+
+
+$('form input').keydown(function (e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+{% block form_block %}
+    <h3>Nazwa lokacji</h3>
+    <input class="form_input" type="text" name="name" value="{{ render_dict['name'] }}">
+    <h3>Opis lokacji</h3>
+    <textarea class="form_input" style="height: 300px; text-align: justify; min-width: 20%; font-size: 100%; padding: 1;" name="info" wrap="soft">{{ render_dict['info'] }}</textarea>
+    <br>
+    <br>
+
+    <div>
+        <input class="form_button" style="font-size: 130%; min-width: 15%; display: inline-block;" type="submit" name="submit_button" value="Zapisz">
+    </div>
+{% endblock %}

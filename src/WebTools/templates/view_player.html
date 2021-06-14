@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('session_edits.sess_select_obj', camp_path=camp_path, session_id=session_id) }}">Obecna sesja</a>
+    <a href="{{  url_for('player_view.see_player', camp_path=camp_path, session_id=session_id, player_id=player.id) }}">{{ player.name }}</a>
+{% endblock %}
+
+{% block body %}
+<form method="POST">
+<div style="height: 100%;">
+    <table style="width: 50%;">
+        {% if player is none %}
+        <tr>
+            <th> <h2> <i> Brak wybranej postaci </i></h2> </th>
+        </tr>
+        {% else %}
+        <tr>
+            <th> <h1> Postać </h1> </th>
+        </tr>
+        <tr>
+            <td>
+                <table style="width: 100%; border: solid 1px white; white-space:normal;">
+                    {% autoescape false %}
+                    <tr style="height: 20px;"></tr>
+                    <tr>
+                        <td>
+                            {% if player.character is not none %}
+                                {{ player.character.to_string(new_line="<br>") }}
+                            {% else %}
+                                <span style="font-size: 110%; font-style: italic;">Brak wybranej postaci</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <input style="font-size: 130%;" class="cool_button" type="submit" name="submit_button" value="Zmień postać">
+                        </td>
+                    </tr>
+                {% endautoescape %}
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td> <h1> Ekwipunek </h1> </td>
+        </tr>
+        <tr>
+            <td>
+                <table style="width: 100%; border: solid 1px white;">
+                    {% autoescape false %}
+                        <tr style="height: 20px;"></tr>
+                        {% for item in inventory %}
+                        <tr>
+                            <td style="width: 10%;"></td>
+                            <td style="border: solid 1px white;">
+                                {{ item[0].to_string(new_line="<br>", number=item[1]) }}
+                            </td>
+                            <td style="width: 10%;"></td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <td>
+                                    <span style="font-size: 110%; font-style: italic;">Ekwipunek jest pusty</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3">
+                                <input style="font-size: 130%;" class="cool_button" type="submit" name="submit_button" value="Edytuj ekwipunek">
+                            </td>
+                        </tr>
+                    {% endautoescape %}
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <th> <h1> Księga czarów </h1> </th>
+        </tr>
+        <tr>
+            <td>
+                <table style="width: 100%; border: solid 1px white;">
+                    {% autoescape false %}
+                        <tr style="height: 20px;"></tr>
+                        {% for spell in spell_book %}
+                        <tr>
+                            <td style="width: 10%;"></td>
+                            <td style="border: solid 1px white;">
+                                {{ spell.to_string(new_line="<br>") }}
+                            </td>
+                            <td style="width: 10%;"></td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <td>
+                                    <span style="font-size: 110%; font-style: italic;">Księga zaklęć jest pusta</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                         <tr>
+                            <td colspan="3">
+                                <input style="font-size: 130%;" class="cool_button" type="submit" name="submit_button" value="Edytuj czary">
+                            </td>
+                        </tr>
+                    {% endautoescape %}
+                </table>
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+</form>
+
+{% endblock %}

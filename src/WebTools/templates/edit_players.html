@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('login_pages.edit_players') }}">Gracze</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <br>
+    <h1>Gracze</h1>
+    <table style="width: 45%;">
+        <tr>
+            <td style="border: solid 1px white;">
+                <form method="POST">
+                    {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="error_box">
+                                        <span style="font-size: 110%; font-style: italic;">{{ message }}</span>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                      {% endwith %}
+                    <table style=" width: 100%; border-collapse: collapse;">
+                        {% for id, player in players.items() %}
+                            <tr style="height: 20px; ">
+                                <td style="border: solid 1px white; width: 70%;">
+                                    <input name="Name_{{ id }}" style="width: 100%;" class="code_input" value="{{ player['name'] }}">
+                                </td>
+                                <td style="border: solid 1px white; width: 20%;">
+                                    <input name="Code_{{ id }}"  style="width: 100%; padding: 0;" class="code_input" value="{{ player['code'] }}">
+                                </td>
+                                <td style="border: solid 1px white;">
+                                    <input name="X_{{ id }}" style="border-radius: 6px; width: 90%; padding: 0; padding: 0; font-size: 120%; padding-top: 4px; padding-bottom: 4px;" class="cool_button" type="submit" value="X">
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">
+                                    <span style="font-size: 110%; font-style: italic;">Brak zarejestrowanych graczy</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3">
+                                <input style="font-size: 110%; width: 30%;" class="form_button" type="submit" name="submit_button" value="Dodaj gracza">
+                            </td>
+                        </tr>
+                        <tr style="height: 10px;"></tr>
+                        <tr>
+                            <td colspan="3">
+                                <input style="width: 35%; font-size: 130%;" class="cool_button" type="submit" name="submit_button" value="Zapisz stan">
+                                <br>
+                                <input style="width: 30%; font-size: 90%;" class="form_button" type="submit" name="submit_button" value="Wczytaj ponownie">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <table style="width: 35%;">
+        <tr>
+            <th> <h1> Sesje </h1> </th>
+        </tr>
+        {% if sessions %}
+            {% for session in sessions %}
+                <tr>
+                    <td>
+                        <form method="POST">
+                            <input style="font-size: 150%; width: 83%;" class="cool_button" type="submit" name="sess_{{ session['session_id'] }}" value="{{ session['session_date'] }}">
+                            <input style="width: 15%; padding: 4px;" class="cool_button" type="submit" name="X_{{ session['session_id'] }}" value="X">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td>
+                    <span style="font-size: 110%; font-style: italic;">Brak sesji do wyświetlenia</span>
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td>
+                <form method="POST">
+                    <input style="font-size: 120%;" class="form_button" type="submit" name="dodaj_sesje" value="Dodaj nową sesję">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <th> <h1> Encyklopedia </h1> </th>
+        </tr>
+        {% for label, name in objects %}
+            <tr>
+                <td>
+                    <form action="{{  url_for('show_obj', obj_name=name, camp_path=camp_path) }}" style="width: 100%;">
+                        <input style="font-size: 150%; width: 100%;" class="cool_button" type="submit" name="submit_button" value="{{ label }}">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>
+{% endblock %}

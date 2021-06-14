@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkbox.css') }}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('session_edits.sess_select_obj', camp_path=camp_path, session_id=session_id) }}">Obecna sesja</a>
+    <a href="{{  url_for('player_view.see_player', camp_path=camp_path, session_id=session_id, player_id=player.id) }}">{{ player.name }}</a>
+    <a href="{{  url_for('player_view.see_inventory', camp_path=camp_path, session_id=session_id, player_id=player.id) }}">Ekwipunek</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <form method="POST">
+        <table style="width: 70%; border-collapse: collapse; table-layout: fixed;">
+            <tr>
+                <th> <h1> Edytuj ekwipunek </h1> </th>
+            </tr>
+            <tr>
+                <td>
+                    <input style="width: 60%; text-align: left;" type="text" name="item_str_criteria" class="form_input" placeholder="Szukaj...">
+                    <button name="submit_button" value="item_search" style="position: relative; top: 7.5px; padding: 0; height: 33px; width: 33px; border-radius: 5px;" class="form_button">
+                        <img src="{{ url_for('static', filename='img/search.png') }}"
+                                     style="max-height: 100%; object-fit: scale-down;">
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form_button" style="font-size: 120%;" type="submit" name="submit_button" value="Zapisz ekwipunek">
+                </td>
+            </tr>
+            {% for item, number in items %}
+                <tr>
+                    {% autoescape false %}
+                        <td style="max-width: 100px; white-space:normal;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 60%; border: solid 1px white; white-space:normal;">
+                                        {{ item.to_string(new_line="<br>") }}
+                                    </td>
+                                    <td style="width: 10%; border: solid 1px white; text-align: center;">
+                                        <label style="font-family: 'Book Antiqua', serif;">Dodaj</label>
+                                        <br>
+                                        <label class="checkbox">
+                                            {% if number > 0 %}
+                                            <input id="C_{{ item.id }}" name="Check_{{ item.id }}" type="checkbox" checked onclick="myFunction('C_{{ item.id }}', 'block_{{ item.id }}', 'number_{{ item.id }}')"/>
+                                            {% else %}
+                                            <input id="C_{{ item.id }}" name="Check_{{ item.id }}" type="checkbox" onclick="myFunction('C_{{ item.id }}', 'block_{{ item.id }}', 'number_{{ item.id }}')"/>
+                                            {% endif %}
+                                            <span></span>
+                                        </label>
+                                    </td>
+                                    {% if number > 0 %}
+                                        <td id="block_{{ item.id }}" style="border: solid 1px white; text-align: center; position: relative; margin: 0; width: 10%;">
+                                    {% else %}
+                                        <td id="block_{{ item.id }}" class="blocked" style="border: solid 1px white; text-align: center; position: relative; margin: 0; width: 10%;">
+                                    {% endif %}
+                                        <label style="font-family: 'Book Antiqua', serif;">Liczba:</label>
+                                        <br>
+                                        <input id="number_{{ item.id }}" name="number_{{ item.id }}" class="form_input" style="padding: 2px; font-size: 140%; width: 60%;" type="number" min="0" step="1" value="{{ number }}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    {% endautoescape %}
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+<script>
+    function myFunction(id_1, id_2, number) {
+      var x = document.getElementById(id_1);
+      var y = document.getElementById(id_2);
+      var num = document.getElementById(number);
+      if (x.checked) {
+        y.classList.remove('blocked');
+        num.value = 1;
+      } else {
+        y.classList.add('blocked');
+        num.value = 0;
+      }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('session_edits.sess_select_obj', camp_path=camp_path, session_id=session_id) }}">Obecna sesja</a>
+    <a href="{{  url_for('session_edits.show_sess_script', camp_path=camp_path, session_id=session_id) }}">Skypt sesji</a>
+{% endblock %}
+
+{% block body %}
+    <div style="height: 100%;">
+        <h1 style="margin-bottom: 15px;"> Edytuj segment skryptu </h1>
+        <br>
+
+        <form method="POST">
+            <textarea class="form_input" style="height: 300px; text-align: justify; min-width: 20%; font-size: 100%; padding: 1;" name="text" wrap="soft">{{ text }}</textarea>
+
+            <br>
+            <br>
+
+            <div>
+                <input class="form_button" style="font-size: 130%; min-width: 15%; display: inline-block;" type="submit" name="save_seg" value="Zapisz">
+            </div>
+        </form>
+        <script>
+            $(document).on("keydown", ":input:not(textarea)", function(event) {
+                return event.key != "Enter";
+            });
+        </script>
+    </div>
+{% endblock %}
+

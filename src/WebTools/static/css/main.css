@@ -1,0 +1,194 @@
+body{
+    background-image: url(../img/main_back.jpg);
+    margin: 0;
+}
+
+table, td, th {
+    margin-left: auto;
+    margin-right: auto;
+
+    border: none;
+}
+
+th {
+    height: 30px;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+a {
+    color: white;
+}
+
+td {
+    text-align: center;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.navi-container {
+    margin-right: 85%;
+    position: relative;
+}
+
+.dropbtn {
+    padding:0.2em 1.45em;
+    margin:0.1em;
+    border:0.15em solid #464d57;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: "Book Antiqua", serif;
+    font-weight:400;
+    background-color:#dce6f5;
+    text-align:center;
+
+    font-size: 120%;
+}
+
+.dropdown {
+  z-index: 1;
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  margin-left: 100%;
+  margin-top: -25%;
+  background-color:#dce6f5;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.dropdown-content a {
+  font-family: "Book Antiqua", serif;
+  color: black;
+  padding:0.4em 1.45em;
+  text-decoration: none;
+  display: block;
+  border:0.15em solid #464d57;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+.dropdown-content a:hover, .dropdown-content a:active{
+    background-color:#999999;
+}
+
+.dropdown:hover .dropdown-content, .dropdown:active .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn, .dropdown:active .dropbtn {
+    background-color:#999999;
+    border-color:#7a7a7a;
+}
+
+.skeleton {
+    min-width: 600px;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 80%;
+
+    padding-top: 2%;
+    padding-bottom: 2%;
+
+    z-index: 0;
+}
+
+.main_contents {
+    position: relative;
+
+    background-color: black;
+    opacity: 0.97;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+
+    flex-flow: column;
+
+    padding-top: 25px;
+    padding-bottom: 50px;
+}
+
+.form_button{
+    padding:0.2em 1.45em;
+    margin:0.1em;
+    border:0.15em solid #464d57;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: "Book Antiqua", serif;
+    font-weight:200;
+    background-color:#dce6f5;
+    text-align:center;
+
+    font-size: 100%;
+}
+.form_button:hover{
+    border-color:#7a7a7a;
+}
+.form_button:active{
+    background-color:#999999;
+}
+
+
+.form_input{
+    padding:0.2em 1.45em;
+    margin:0.1em;
+    margin-top: 0;
+    border:0.15em solid #464d57;
+    box-sizing: border-box;
+
+    font-family: "Book Antiqua", serif;
+    font-weight:400;
+
+    background-color:#dce6f5;
+
+    text-align:center;
+    position:relative;
+
+    display: inline-block;
+
+    font-size: 110%;
+}
+
+.sess_prev {
+    font-family: "Book Antiqua", serif;
+    font-weight:400;
+    font-size: 110%;
+}
+
+.input_part[type=checkbox] {
+  display: none;
+}
+
+.container img {
+  background-color: white;
+  padding: 2px;
+  transition: transform 0.25s ease;
+  cursor: zoom-in;
+}
+
+.input_part:checked ~ label > img {
+  transform: scale(2);
+  cursor: zoom-out;
+}
+
+@media {
+  .content-with-image-on-right .content,
+  .content-with-image-on-right .rightImage {
+    float: none;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+

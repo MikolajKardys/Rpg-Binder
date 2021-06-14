@@ -1,0 +1,95 @@
+{% extends 'obj_forms/base_form.html' %}
+
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block form_title %} Edytuj postać {% endblock %}
+
+{% block form_block %}
+<table style="width: 100%;">
+    <tr>
+        <td>
+            <h2>Imię</h2>
+            <input style="font-size: 130%; width: 35%;" class="form_input" type="text" name="name" value="{{ render_dict['name'] }}">
+            <br>
+            <br>
+            <h3 style="display: inline;">Punkty doświadczenia: </h3>
+            <input class="form_input" style="padding: 2px; font-size: 130%; width: 8%;" type="number" name="pd" min="0" step="1" value="{{ render_dict['pd'] }}"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br>
+            <table>
+                {% for key, label, tuple in render_dict['tuples'] %}
+                <tr>
+                    <td>
+                        <h3 style="display: inline;">{{ label }}:</h3>
+                        <input id="{{ key }}_1" onchange="increase('{{ key }}_1', '{{ key }}_2')" class="form_input" style="padding: 2px; font-size: 120%; width: 10%;" type="number" name="tuple_value_{{ key }}" min="0" step="1" value="{{ tuple[0] }}"/>
+                        <h2 style="display: inline;">/</h2>
+                        <input id="{{ key }}_2" onchange="decrease('{{ key }}_1', '{{ key }}_2')" class="form_input" style="padding: 2px; font-size: 120%; width: 10%;" type="number" name="tuple_value_{{ key }}_max" min="0" step="1" value="{{ tuple[1] }}"/>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>Statystyki</h2>
+            <table style="border-collapse: collapse;">
+
+            {% for key, value in render_dict['stats'].items() %}
+                <tr style="border: solid 1px white; width: 75px;">
+                    <td style="border: solid 1px white;">
+                        <h3 style="margin-bottom: 0; display: inline;" >{{ value[0] }}</h3>
+
+                    </td>
+                    <td style="width: 150px; padding-left: 15%; padding-right: 15%;">
+                        <input class="form_input" style="padding: 2px; font-size: 120%; width: 100%;" type="number" name="stat_key_{{ key }}" min="0" step="1" value="{{ value[1] }}"/>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>Umiejętności</h2>
+                {% for key, skill in render_dict['skills'].items() %}
+                    <input class="form_input" style="text-align: left; min-width: 20%;" type="text" name="skill_name_{{ key }}" value="{{ skill[0] }}">
+                    <input class="form_input" style="padding: 2px; font-size: 120%;" type="number" name="skill_value_{{ key }}" min="-6" max="6" step="1" value="{{ skill[1] }}"/>
+                    <input class="form_button" style="position: relative; bottom: 2px;" type="submit" name="X_skill_{{ key }}" value="X">
+                    <br>
+                {% endfor %}
+                <input class="form_button" type="submit" name="submit_button" value="Dodaj umiejętność">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input class="form_button" style="font-size: 130%; min-width: 15%; display: inline-block;" type="submit" name="submit_button" value="Zapisz">
+        </td>
+    </tr>
+</table>
+<script>
+    function increase(id_1, id_2) {
+      var cur = document.getElementById(id_1);
+      var max = document.getElementById(id_2);
+
+      if (cur.value > max.value) {
+        max.value = cur.value
+      }
+    }
+    function decrease(id_1, id_2) {
+      var cur = document.getElementById(id_1);
+      var max = document.getElementById(id_2);
+
+      if (cur.value > max.value) {
+        cur.value = max.value
+      }
+    }
+</script>
+
+
+{% endblock %}

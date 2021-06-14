@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkbox.css') }}"/>
+{% endblock %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('session_edits.sess_select_obj', camp_path=camp_path, session_id=session_id) }}">Obecna sesja</a>
+    <a href="{{  url_for('session_edits.show_sess_script', camp_path=camp_path, session_id=session_id) }}">Skypt sesji</a>
+{% endblock %}
+
+
+{% block body %}
+<div style="height: 100%;">
+    <table style="width: 50%; border-collapse: collapse; table-layout: fixed;">
+        <tr>
+            <th> <h1> Segmenty scenariusza </h1> </th>
+        </tr>
+
+        <tr>
+            <td>
+                <form action="{{  url_for('session_edits.add_script_seg', camp_path=camp_path, session_id=session_id, seg_ind='-1') }}" method="POST">
+                    <input style="font-size: 120%;" class="form_button" type="submit" name="add_seg" value="Dodaj segment">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            {% autoescape false %}
+                <td>
+                    <form method="POST">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            {% for ind, text in acts %}
+                            <tr>
+                                <td style="border: 1px solid white;  max-width: 100px; white-space:normal; position: relative;">
+                                    <p style="font-family: \'Book Antiqua\', serif; font-size: 120%; width: 95%;"> {{ text }} </p>
+                                    <br>
+                                    <input class="form_button" type="submit" name="edit_{{ ind }}" value="Edytuj segment">
+                                    <input class="form_button" type="submit" name="rem_{{ ind }}" value="Usuń segment">
+
+                                    {% if ind == 0 %}
+                                    <button name="up_{{ ind }}" style="position: absolute; right: 10px; bottom: 50%; padding: 0; height: 30px; width: 30px; pointer-events:none; opacity: 0.5;" class="form_button" disabled>
+                                        <img src="{{ url_for('static', filename='img/up.png') }}"
+                                                     style="max-height: 25px; object-fit: scale-down;">
+                                    </button>
+                                    {% else %}
+                                    <button name="up_{{ ind }}" style="position: absolute; right: 10px; bottom: 50%; padding: 0; height: 30px; width: 30px;" class="form_button">
+                                        <img src="{{ url_for('static', filename='img/up.png') }}"
+                                                     style="max-height: 25px; object-fit: scale-down;">
+                                    </button>
+                                    {% endif %}
+
+                                    {% if ind < acts|length - 1 %}
+                                    <button name="down_{{ ind }}" style="position: absolute; right: 10px; top: 50%; padding: 0; height: 30px; width: 30px;" class="form_button">
+                                        <img src="{{ url_for('static', filename='img/down.png') }}"
+                                                     style="max-height: 25px; object-fit: scale-down;">
+                                    </button>
+                                    {% else %}
+                                    <button name="down_{{ ind }}" style="position: absolute; right: 10px; top: 50%; padding: 0; height: 30px; width: 30px; pointer-events:none; opacity: 0.5;" class="form_button">
+                                        <img src="{{ url_for('static', filename='img/down.png') }}"
+                                                     style="max-height: 25px; object-fit: scale-down;">
+                                    </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td>
+                                    <span style="font-size: 110%; font-style: italic;">Skypt sesji jest pusty</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </table>
+                    </form>
+                </td>
+            {% endautoescape %}
+        </tr>
+    </table>
+</div>
+{% endblock %}

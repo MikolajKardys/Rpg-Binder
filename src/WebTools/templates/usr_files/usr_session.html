@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('user_pages.user_session', session_id=session_id) }}">Sesja {{ session_id }}</a>
+
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <table>
+        <tr>
+            <th> <h1> Encyklopedia </h1> </th>
+        </tr>
+        {% for label, name in objects %}
+            <tr>
+                <td>
+                    <form action="{{  url_for('user_pages.user_show_obj', obj_name=name, session_id=session_id) }}" style="width: 100%;">
+                        <input style="font-size: 150%; width: 90%;" class="cool_button" type="submit" name="submit_button" value="{{ label }}">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>
+{% endblock %}

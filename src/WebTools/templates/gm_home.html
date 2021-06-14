@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div style="height: 100%;">
+    <table>
+        <tr>
+            <th> <h1> Strona główna </h1> </th>
+        </tr>
+
+        <tr>
+            <th> <h3> Przeglądnij swoje zapisane dane, albo przejdź do sesji </h3> </th>
+        </tr>
+
+        <tr>
+            <td>
+                <form action="{{ url_for('select_campaign') }}" style="width: 100%;">
+                    <input style="font-size: 170%; width: 90%;" class="cool_button" type="submit" name="submit_button" value="Moje kampanie">
+                </form>
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td>
+                <form action="{{ url_for('login_pages.edit_players') }}" style="width: 100%;">
+                    <input style="font-size: 170%; width: 90%;" class="cool_button" type="submit" name="submit_button" value="Użytkownicy">
+                </form>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <form action="{{ url_for('conn_guide') }}" style="width: 100%;">
+                    <input style="font-size: 170%; width: 90%;" class="cool_button" type="submit" name="submit_button" value="Jak się połączyć?">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

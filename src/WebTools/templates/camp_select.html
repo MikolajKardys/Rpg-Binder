@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <table style="width: 35%;">
+        <tr>
+            <th> <h1> Twoje kampanie </h1> </th>
+        </tr>
+        {% for name in names %}
+            <tr>
+                <td>
+                    <form style="width: 100%;" method="POST">
+                        <input style="font-size: 150%; width: 85%;" class="cool_button" type="submit" name="Camp_{{ name }}" value="{{ name }}">
+                        <input style="padding: 4px; width: 10%;" class="cool_button" type="submit" name="X_{{ name }}" value="X">
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>
+                    <span style="font-size: 110%; font-style: italic;">Brak kampanii</span>
+                </td>
+            </tr>
+        {% endfor %}
+            <tr>
+                <th> <h2 style="margin-bottom: 0;"> Dodaj nową kampanię </h2> </th>
+            </tr>
+
+            <tr>
+                <td>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="error_box">
+                                    <span style="font-size: 110%; font-style: italic;">{{ message }}</span>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form method="POST">
+                        <input name="new_name" style="font-size: 110%;" class="form_input" type="text" placeholder="Wprowadź nazwę...">
+                        <input name="add_camp" style="font-size: 110%;" class="cool_button" type="submit" value="Dodaj">
+                    </form>
+                </td>
+            </tr>
+    </table>
+</div>
+{% endblock %}

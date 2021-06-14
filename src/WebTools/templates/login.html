@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login_form.css') }}"/>
+{% endblock %}
+
+{% block body %}
+
+    <h1 style="margin-bottom: 15px;"> Podaj swój kod </h1>
+    <form method="POST">
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="error_box">
+                        <span style="font-size: 110%; font-style: italic;">{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+      {% endwith %}
+      <input class="code_input" type="text" name="submit_text">
+      <br>
+      <br>
+      <input class="cool_button" type="submit" name="submit_button" value="Mistrz gry">
+      <input class="cool_button" type="submit" name="submit_button" value="Gracz">
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'obj_show.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('user_pages.user_session', session_id=session_id) }}">Sesja {{ session_id }}</a>
+    <a href="{{ url_for('user_pages.user_show_obj', obj_name=obj_path, session_id=session_id) }}">{{ obj_name }}</a>
+{% endblock %}

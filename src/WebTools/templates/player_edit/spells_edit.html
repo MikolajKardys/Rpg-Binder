@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkbox.css') }}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('session_edits.sess_select_obj', camp_path=camp_path, session_id=session_id) }}">Obecna sesja</a>
+    <a href="{{  url_for('player_view.see_player', camp_path=camp_path, session_id=session_id, player_id=player.id) }}">{{ player.name }}</a>
+    <a href="{{  url_for('player_view.see_spells', camp_path=camp_path, session_id=session_id, player_id=player.id) }}">Księga zaklęć</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <form method="POST">
+        <table style="width: 70%; border-collapse: collapse; table-layout: fixed;">
+            <tr>
+                <th> <h1> Edytuj księgę zaklęć </h1> </th>
+            </tr>
+            <tr>
+                <td>
+                    <input style="width: 60%; text-align: left;" type="text" name="spell_str_criteria" class="form_input" placeholder="Szukaj...">
+                    <button name="submit_button" value="spell_search" style="position: relative; top: 7.5px; padding: 0; height: 33px; width: 33px; border-radius: 5px;" class="form_button">
+                        <img src="{{ url_for('static', filename='img/search.png') }}"
+                                     style="max-height: 100%; object-fit: scale-down;">
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form_button" style="font-size: 120%;" type="submit" name="submit_button" value="Zapisz zaklęcia">
+                </td>
+            </tr>
+            {% for spell, active in spells %}
+                <tr>
+                    {% autoescape false %}
+                        <td style="max-width: 100px; white-space:normal;">
+                            <table style="width: 80%;">
+                                <tr>
+                                    <td style="width: 60%; border: solid 1px white; white-space:normal;">
+                                        <input type="hidden" name="ind_{{ spell.id }}">
+                                        {{ spell.to_string(new_line="<br>") }}
+                                    </td>
+                                    <td style="width: 10%; border: solid 1px white; text-align: center;">
+                                        <label style="font-family: 'Book Antiqua', serif;">Dodaj</label>
+                                        <br>
+                                        <label class="checkbox">
+                                            {% if active %}
+                                            <input id="C_{{ spell.id }}" name="Check_{{ spell.id }}" type="checkbox" checked/>
+                                            {% else %}
+                                            <input id="C_{{ spell.id }}" name="Check_{{ spell.id }}" type="checkbox"/>
+                                            {% endif %}
+                                            <span></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    {% endautoescape %}
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+</div>
+{% endblock %}

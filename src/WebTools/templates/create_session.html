@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login_form.css') }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/checkbox.css') }}"/>
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+{% endblock %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <h1 style="margin-bottom: 15px;"> Stwórz nową sesję </h1>
+
+    <form method="POST">
+        <table style="width: 25%;">
+            <tr>
+                <td>
+                    <h2>Data sesji</h2>
+                    <input type="date" class="form_input" name="sess_date" value="{{ today }}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td>
+                                <h2 style="display: inline;">Dziedzicz dane</h2>
+                                <label style="position: relative; top: 5px;"  class="checkbox">
+                                    <input id="follow_check" name="Follow_check" type="checkbox" onclick="blockFunc('follow_check', 'block_block')"/>
+                                    <span></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="block_block" class="blocked">
+                                <br>
+                                <h2 style="margin-top: 2px;">Dziedzicz po: </h2>
+                                <select id="option_select" class="form_input" style="width: 90%; text-align-last: center;" name="Follow_select" >
+                                    <option value="" selected disabled hidden>Wybierz sesję...</option>
+                                    <option value="" selected disabled hidden></option>
+                                    {% for session in sessions %}
+                                        <option value="{{ session.session_id }}">{{ session.session_date }}</option>
+                                    {% else %}
+                                        <option value="" selected disabled hidden>Brak innych sesji</option>
+                                    {% endfor %}
+                                </select>
+                                <br>
+                                <br>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" class="cool_button" name="submit_button" value="Zapisz sesję">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+    <script>
+        $(document).on("keydown", ":input:not(textarea)", function(event) {
+            return event.key != "Enter";
+        });
+
+        function blockFunc(id_1, id_2) {
+          var x = document.getElementById(id_1);
+          var y = document.getElementById(id_2);
+
+          if (x.checked) {
+            y.classList.remove('blocked');
+            document.getElementById('option_select').selectedIndex = 0;
+          } else {
+            y.classList.add('blocked');
+            document.getElementById('option_select').selectedIndex = 1;
+          }
+        }
+    </script>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login_form.css') }}"/>
+{% endblock %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('show_obj', obj_name=obj_name, camp_path=camp_path) }}">{{ obj_label }}</a>
+{% endblock %}
+
+{% block body %}
+
+    <div style="height: 100%;">
+        <h1 style="margin-bottom: 15px;"> {% block form_title %} {% endblock %} </h1>
+
+        <form id="main-form"  method="POST" action="{{ url_for('camp_edits.edit_obj', camp_path=camp_path, obj_name=obj_name, obj_id=obj_id) }}">
+            {% block form_block %} {% endblock %}
+        </form>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script>
+            $(document).on("keydown", ":input:not(textarea)", function(event) {
+                return event.key != "Enter";
+            });
+        </script>
+    </div>
+
+
+{% endblock %}

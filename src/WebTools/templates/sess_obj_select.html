@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a href="{{ url_for('select_campaign') }}">Kampanie</a>
+    <a href="{{  url_for('select_obj', camp_path=camp_path) }}">{{ camp_path }}</a>
+    <a href="{{  url_for('session_edits.sess_select_obj', camp_path=camp_path, session_id=session_id) }}">Obecna sesja</a>
+{% endblock %}
+
+{% block body %}
+<div style="height: 100%;">
+    <table style="width: 35%;">
+        <tr>
+            <th> <h1> Gracze </h1> </th>
+        </tr>
+        {% if players %}
+        {% for player in players %}
+            <tr>
+                <td>
+                    <form style="width: 100%;" method="POST">
+                        <input style="font-size: 150%; width: 85%;" class="cool_button" type="submit" name="show_{{ player.id }}" value="{{ player.name }}">
+                        <input style="width: 13%; padding: 0; padding: 0; font-size: 150%; padding-top: 4px; padding-bottom: 4px;" class="cool_button" type="submit" name="X_{{ player.id }}" value="X">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>
+                <span style="font-size: 110%; font-style: italic;">Brak graczy do wyświetlenia</span>
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td>
+                <form action="{{ url_for('session_edits.add_player_sess', camp_path=camp_path, session_id=session_id) }}" method="POST">
+                    <select class="form_input" style="width: 70%; text-align-last: center;" name="player_select" >
+                        <option value="" selected disabled hidden>Wybierz gracza...</option>
+                        {% for player in all_players %}
+                            {% if player['already'] %}
+                                <option value="{{ player['id'] }}" disabled>{{ player['name'] }}</option>
+                            {% else %}
+                                <option value="{{ player['id'] }}">{{ player['name'] }}</option>
+                            {% endif %}
+                        {% else %}
+                            <option value="" selected disabled hidden>Brak zarejestrowanych graczy</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <input type="submit" class="form_button" name="add_player" value="Dodaj gracza">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <th> <h1> Encyklopedia </h1> </th>
+        </tr>
+
+        <tr>
+            <td>
+                <form style="width: 100%;" method="POST" action="{{ url_for('session_edits.show_sess_script', camp_path=camp_path, session_id=session_id) }}">
+                    <input style="font-size: 150%; width: 100%;" class="cool_button" type="submit" value="Skrypt">
+                </form>
+            </td>
+        </tr>
+
+        {% for label, name in objects %}
+            <tr>
+                <td>
+                    <form action="{{  url_for('session_edits.sess_show_obj', camp_path=camp_path, obj_name=name, session_id=session_id) }}" style="width: 100%;">
+                        <input style="font-size: 150%; width: 100%;" class="cool_button" type="submit" name="submit_button" value="{{ label }}">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'obj_forms/base_form.html' %}
+
+{% block form_title %} Edytuj przedmiot {% endblock %}
+
+
+{% block form_block %}
+    <h3>Nazwa przedmiotu</h3>
+    <input class="form_input" type="text" name="name" value="{{ render_dict['name'] }}">
+    <h3>Opis przedmiotu</h3>
+    {% for key, val in render_dict['attributes'].items() %}
+        <input class="form_input" style="text-align: left; min-width: 20%;" type="text" name="atr_{{ key }}" value="{{ val }}">
+        <input class="form_button" type="submit" name="X_{{ key }}" value="X">
+        <br>
+    {% endfor %}
+    <input class="form_button" type="submit" name="submit_button" value="Dodaj atrybut">
+    <br>
+    <br>
+
+    <div>
+        <input class="form_button" style="font-size: 130%; min-width: 15%; display: inline-block;" type="submit" name="submit_button" value="Zapisz">
+    </div>
+
+{% endblock %}
