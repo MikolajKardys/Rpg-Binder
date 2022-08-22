@@ -1,4 +1,0 @@
-id,name,pd,stats,health,armor,mana,pw,pkp,skills
-1,Gordia,145,"{'strength': 10, 'agility': 7, 'endurance': 8, 'perception': 8, 'intelligence': 9, 'will': 5}","(30, 30)","(25, 25)","(0, 0)","(3, 3)","(3, 3)","[('Atak broni¹ obuchow¹', -4), ('Teologia', -4), ('Mocna g³owa', -5), ('Garda', -4), ('Znajomoœci w Gmachu', -6)]"
-2,Bethil,120,"{'strength': 9, 'agility': 9, 'endurance': 10, 'perception': 11, 'intelligence': 6, 'will': 7}","(24, 24)","(20, 20)","(0, 0)","(3, 3)","(3, 3)","[('Negocjowanie', -5), ('Otwieranie zamków', -6), ('Strzelanie z ³uku', -4), ('Tropienie', -5)]"
-3,Tolf Twardodupy,25,"{'strength': 8, 'agility': 10, 'endurance': 9, 'perception': 10, 'intelligence': 7, 'will': 8}","(30, 30)","(20, 20)","(0, 0)","(3, 3)","(3, 3)","[('Tropienie', -4), ('Bajanie', -6), ('Z³odziejstwo', -5), ('Walka kilofem', -4)]"
