@@ -1,5 +1,0 @@
-id,name,pd,stats,health,armor,mana,pw,pkp,skills
-1,Tuono,60,"{'strength': 7, 'agility': 11, 'endurance': 9, 'perception': 7, 'intelligence': 9, 'will': 6}","(25, 25)","(0, 0)","(0, 0)","(3, 3)","(3, 3)","[('Gra na flecie poprzecznym', -6), ('¯onglowanie', -6), ('Gra na scenie', -6), ('Strzelanie z kuszy', -5)]"
-2,Fryc Urban Ransterberger IV,90,"{'strength': 10, 'agility': 7, 'endurance': 8, 'perception': 7, 'intelligence': 9, 'will': 8}","(35, 35)","(30, 30)","(0, 0)","(3, 3)","(3, 3)","[('Rzucanie no¿ami', -4), ('Otwieranie zamków', -6), ('Garda', -5), ('Skradanie siê', -4)]"
-3,Nenufar,140,"{'strength': 10, 'agility': 8, 'endurance': 9, 'perception': 8, 'intelligence': 9, 'will': 6}","(36, 36)","(15, 16)","(0, 0)","(3, 3)","(3, 3)","[('Jazda konno', -6), ('Zielarstwo', -6), ('Strzelanie z ³uku', -4)]"
-4,Rombe,65,"{'strength': 7, 'agility': 7, 'endurance': 8, 'perception': 10, 'intelligence': 11, 'will': 9}","(20, 20)","(12, 12)","(15, 15)","(3, 3)","(3, 3)","[('Jêzyk elficki', -6), ('Znajomoœci na Uniwersytecie', -6), ('Pisanie', -6), ('Czytanie', -6)]"
